@@ -48,17 +48,27 @@ def Pass(m):
 
 if __name__=="__main__":
 
-  arr= getStdAns()
-  Trace=Mark(arr, Ans())
-  mark=Trace[len(Trace)-1]
+ choice=True
 
-  Pass(mark)
+ while choice:
+   arr= getStdAns()
+   Trace=Mark(arr, Ans())
+   mark=Trace[len(Trace)-1]
+
+   Pass(mark)
 
          #print result:
-  print('your score: ',mark)
-  print("incorrect: ",end='')
-  for i in range(0,len(Trace)-1):
+   print('your score: ',mark)
+   print("incorrect: ",end='')s
+   for i in range(0,len(Trace)-1):
       print(Trace[i],end=', ')
+   print("",end='')
+   ch=input(("do u want try again?  Yes/NO:"))
+   if ch== 'yes':
+       choice=True
+   else:
+       choice=False
+ 
 
 
 
