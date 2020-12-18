@@ -2,8 +2,7 @@ import re
 import string
 
 
-
-def start():
+def menu_start():
     print("What would you like to do? /n")
     print("1: Get the score of a word")
     print("2: Get the average score of words in a file ")
@@ -13,9 +12,8 @@ def start():
     i=int(input())
     return i
 
-
 # read file and return frequency of each word in that file
-def frequency(object):
+def frequency_dict(object):
     fre = {}
     document_text = open(object, 'r')
     #set all word to lower case
@@ -36,37 +34,48 @@ def frequency(object):
         dictionary.update({words: fre[words]})
     return dictionary
 
+def contain(line,word):
+    line=line.split()
+    for i in range(0,len(line)):
+        if word==line[i]:
+            return True
+            break
+    return False
 
 
-def get_score(object,fre_dictionary):
+def get_score(object,fre_dictionary,word):
     file =object
     dic =fre_dictionary
-    new_dic={}
 
-    num=[]
+    fre=freq(dic,word)
+
     with open(file) as f:
-        for line in f:
-            #num =  int in 1st line divide for frequency
+            sum=0
+            for line in f:
+                if contain(line,word)==True:
+                    sum+=int(line[0])
+            mark=sum//int(fre)
 
-           num.append(int(line[0]))
+    return mark
 
-    mark=[]
-    pos=0
+def freq(dic, word):
+    f=0
     for k,v in dic.items():
-            mark=int(num[pos])
-            new_dic.update({k:(num[pos])})
-            pos+=1
-    return new_dic
+        if k==word:
+            return int(v)
+            break
 
-def tmp_main():
-   i=start()
-   if i==1:
 
-       fre=frequency("training.txt")
-       print(get_score("training.txt",fre))
-   elif i==2:
-       print(":))")
+def main():
+    #1:
+    inp=menu_start()
+    if inp==1:
+      word=str(input())
+      fre_dic = frequency_dict("training.txt")
+      score=get_score("training.txt", fre_dic, word)
+      print(word+" : ", score)
 
-tmp_main()
+
+main()
 
 
